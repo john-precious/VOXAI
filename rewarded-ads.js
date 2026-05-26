@@ -23,7 +23,7 @@ import { addCredits } from "./user-service.js";
 
 // Pick ONE provider: "adsterra" | "monetag" | "adinplay" | "unity" | "simulation"
 // Or set window.VOXAI_AD_PROVIDER in firebase-config.js to override
-const AD_PROVIDER = "adsterra";
+const AD_PROVIDER = window.VOXAI_AD_PROVIDER || "adsterra";
 
 // Credits awarded per ad watched
 const CREDITS_PER_AD = 3;
@@ -43,7 +43,7 @@ const PROVIDER_CONFIG = {
   adsterra: {
     // Paste the invoke.js URL from your Adsterra dashboard
     scriptURL: "https://pl29559965.effectivecpmnetwork.com/65bd3a55a45f0bd8f95338aa386d8b78/invoke.js",
-    zoneId:    "5808420"
+    zoneId:    "3304579"
   },
 
   // ─── MONETAG (PropellerAds) ───────────────────
