@@ -20,31 +20,31 @@ import { addCredits } from "./user-service.js";
 /* ============================================================
    CONFIGURATION
    ============================================================ */
-
-// Pick ONE provider: "adsterra" | "monetag" | "adinplay" | "unity" | "simulation"
-// Or set window.VOXAI_AD_PROVIDER in firebase-config.js to override
+// Pick ONE provider: "adsterra-direct" | "simulation"
 const AD_PROVIDER = window.VOXAI_AD_PROVIDER || "adsterra-direct";
 
 // Credits awarded per ad watched
 const CREDITS_PER_AD = 3;
 
-// Max ads per day per user (prevents abuse / preserves CPM)
+// Max ads per day per user
 const MAX_ADS_PER_DAY = 10;
+
+// Minimum seconds user must stay on ad to earn credits
+const MIN_AD_WATCH_TIME = 10;
 
 /* ============================================================
    PROVIDER CONFIGURATIONS
-   Paste your real IDs/scripts here after signup
    ============================================================ */
 
 const PROVIDER_CONFIG = {
 
-  // ─── ADSTERRA ─────────────────────────────────
-  // https://adsterra.com
-  adsterra: {
-    // Paste the invoke.js URL from your Adsterra dashboard
-    scriptURL: "https://www.highperformanceformat.com/0666513b10d2d21fa4d120be1740358f/invoke.js",
-    zoneId:    "3304579"
-  },
+  // ─── ADSTERRA DIRECT LINK ⭐ ───
+  // Get from Adsterra → Websites → + Create Ad Unit → "Direct Link"
+  "adsterra-direct": {
+    directLinkURL: "https://www.effectivecpmnetwork.com/d6n3wcwk?key=3cee97eb66c103c728d90ae2917fc2aa"
+  }
+
+};
 
   // ─── MONETAG (PropellerAds) ───────────────────
   // https://monetag.com
