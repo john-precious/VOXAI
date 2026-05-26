@@ -42,7 +42,7 @@ const PROVIDER_CONFIG = {
   // https://adsterra.com
   adsterra: {
     // Paste the invoke.js URL from your Adsterra dashboard
-    scriptURL: "https://www.effectivecpmnetwork.com/it5pj3mj?key=f95f3e749eb6316a49c727b425b9bbee",
+    scriptURL: "https://pl29559965.effectivecpmnetwork.com/65bd3a55a45f0bd8f95338aa386d8b78/invoke.js",
     zoneId:    "5808420"
   },
 
