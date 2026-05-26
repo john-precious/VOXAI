@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – VoxAI</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span>
+      VoxAI
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="generator.html">AI Generator</a></li>
+      <li><a href="voice-library.html">Voices</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#" data-action="logout" class="btn btn-ghost">Logout</a>
+    </div>
+    <button class="mobile-toggle">☰</button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Welcome back, <span class="gradient-text" id="user-name">Creator</span> 👋</h1>
+  <p>Manage your generations, voices, and account.</p>
+</header>
+
+<div class="dashboard-grid">
+  <aside class="sidebar">
+    <a href="#" class="active">📊 Overview</a>
+    <a href="#history">📂 History</a>
+    <a href="#favorites">⭐ Favorites</a>
+    <a href="generator.html">🎙 New generation</a>
+    <a href="pricing.html">💎 Upgrade plan</a>
+    <a href="#" data-action="logout">🚪 Logout</a>
+  </aside>
+
+  <main>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="label">Credits left</div><div class="value" id="stat-credits">…</div></div>
+      <div class="stat-card"><div class="label">Total generations</div><div class="value" id="stat-total">…</div></div>
+      <div class="stat-card"><div class="label">Favorite voices</div><div class="value" id="stat-favs">…</div></div>
+      <div class="stat-card"><div class="label">Current plan</div><div class="value" style="font-size:18px;" id="stat-plan">…</div></div>
+    </div>
+
+    <div class="tool-panel" id="history">
+      <h3>📂 Recent generations</h3>
+      <div id="history-list">
+        <p style="color: var(--text-muted); font-size:14px;">Loading...</p>
+      </div>
+    </div>
+
+    <div class="tool-panel" style="margin-top: 20px;" id="favorites">
+      <h3>⭐ Favorite voices</h3>
+      <div id="fav-list">
+        <p style="color: var(--text-muted); font-size:14px;">Loading...</p>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-banner" style="margin-top: 30px;"><span>📢 Dashboard Banner Ad</span></div>
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><a href="index.html" class="logo"><span class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span> VoxAI</a></div>
+    <div class="footer-col"><h4>Product</h4><ul><li><a href="generator.html">AI Generator</a></li><li><a href="voice-library.html">Voice Library</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2026 VoxAI. All rights reserved.</div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module">
+  import { requireAuth } from "./js/auth.js";
+  import { getUserProfile, getHistory, getFavorites, deleteHistoryItem } from "./js/user-service.js";
+  import { playVoiceInto } from "./js/voice-service.js";
+  const _sharedAudio = new Audio();
+
+  const user = await requireAuth("login.html");
+
+  // ---- Profile ----
+  const profile = await getUserProfile();
+  document.getElementById("user-name").textContent = profile?.name || user.displayName || "Creator";
+  document.getElementById("stat-credits").textContent = profile?.plan === "pro" ? "∞" : (profile?.credits ?? 0);
+  document.getElementById("stat-total").textContent = profile?.totalGenerations ?? 0;
+  document.getElementById("stat-plan").textContent = (profile?.plan || "free").toUpperCase();
+
+  // ---- History ----
+  const history = await getHistory(15);
+  const hList = document.getElementById("history-list");
+  if (!history.length) {
+    hList.innerHTML = `<p style="color: var(--text-muted); font-size:14px;">No generations yet. <a href="generator.html" style="color: var(--accent);">Start generating →</a></p>`;
+  } else {
+    hList.innerHTML = history.map(item => `
+      <div class="voice-card" style="margin-bottom: 10px;" data-id="${item.id}">
+        <div class="voice-avatar">🎙</div>
+        <div class="voice-info">
+          <h4>${escapeHtml(item.text || 'Untitled')}</h4>
+          <p>${escapeHtml(item.voice || 'Voice')} · ${formatDate(item.createdAt)}</p>
+        </div>
+        <button class="play-btn" data-replay="${item.voiceId}" data-text="${escapeHtml(item.text)}">▶</button>
+        <button class="play-btn" data-delete="${item.id}" style="background:rgba(255,80,80,0.15); color:#ff8080; border-color:rgba(255,80,80,0.3);">🗑</button>
+      </div>
+    `).join("");
+
+    // Wire up replay
+    hList.querySelectorAll("[data-replay]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        btn.innerHTML = "⏳"; btn.disabled = true;
+        try {
+          _sharedAudio.pause();
+          await playVoiceInto(_sharedAudio, btn.dataset.text, btn.dataset.replay);
+          toast("▶ Playing...");
+        } catch (e) { console.error(e); toast("Replay failed: " + e.message); }
+        btn.innerHTML = "▶"; btn.disabled = false;
+      });
+    });
+    hList.querySelectorAll("[data-delete]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!confirm("Delete this generation?")) return;
+        await deleteHistoryItem(btn.dataset.delete);
+        btn.closest(".voice-card").remove();
+        toast("Deleted");
+      });
+    });
+  }
+
+  // ---- Favorites ----
+  const favs = await getFavorites();
+  document.getElementById("stat-favs").textContent = favs.length;
+  const fList = document.getElementById("fav-list");
+  if (!favs.length) {
+    fList.innerHTML = `<p style="color: var(--text-muted); font-size:14px;">Star voices in the <a href="voice-library.html" style="color: var(--accent);">library</a> to see them here.</p>`;
+  } else {
+    fList.innerHTML = favs.map(f => `
+      <div class="voice-card" style="margin-bottom: 10px;">
+        <div class="voice-avatar">${f.voiceName.charAt(0)}</div>
+        <div class="voice-info">
+          <h4>${escapeHtml(f.voiceName)}</h4>
+          <p>Voice ID: ${escapeHtml(f.voiceId)}</p>
+        </div>
+        <a href="generator.html" class="play-btn">🎙</a>
+      </div>
+    `).join("");
+  }
+
+  function escapeHtml(s) { return String(s||"").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+  function formatDate(ts) {
+    if (!ts) return "Just now";
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleString();
+  }
+</script>
+</body>
+</html>

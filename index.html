@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoxAI – Generate AI Voices Instantly | Realistic Text-to-Speech</title>
+<meta name="description" content="VoxAI lets you generate ultra-realistic AI voices for YouTube, TikTok, podcasts, and more. 25+ voices, 14+ languages, free daily credits.">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Google AdSense (replace ca-pub-XXXXXXXX with your publisher ID) -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+      </span>
+      VoxAI
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="generator.html">AI Generator</a></li>
+      <li><a href="voice-library.html">Voices</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="creator-tools.html">Creator Tools</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost">Login</a>
+      <a href="register.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="mobile-toggle">☰</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="ad-slot ad-banner"><span>📢 Ad Slot — 728x90 Top Banner (Google AdSense)</span></div>
+</div>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-badge">✨ Trusted by creators worldwide</div>
+    <h1>Generate <span class="gradient-text">AI Voices</span> Instantly</h1>
+    <p>Turn any text into ultra-realistic speech in seconds. 25+ premium voices, 14+ languages, perfect for YouTube, TikTok, podcasts and more.</p>
+    <div class="hero-cta">
+      <a href="generator.html" class="btn btn-primary btn-lg">🚀 Try Free Generator</a>
+      <a href="voice-library.html" class="btn btn-secondary btn-lg">🎙 Browse Voices</a>
+    </div>
+
+    <div class="demo-box">
+      <textarea id="demo-text" placeholder="Type something..." maxlength="300">Welcome to VoxAI, where every word comes alive with realistic, human-like voices.</textarea>
+      <div class="demo-controls">
+        <select id="demo-voice">
+          <option value="Joanna">🇺🇸 Joanna (US Female)</option>
+          <option value="Matthew">🇺🇸 Matthew (US Male)</option>
+          <option value="Amy">🇬🇧 Amy (UK Female)</option>
+          <option value="Brian">🇬🇧 Brian (UK Male)</option>
+          <option value="Nicole">🇦🇺 Nicole (Aussie)</option>
+          <option value="Conchita">🇪🇸 Conchita (Spanish)</option>
+          <option value="Celine">🇫🇷 Celine (French)</option>
+          <option value="Mizuki">🇯🇵 Mizuki (Japanese)</option>
+        </select>
+        <button class="btn btn-primary" id="demo-generate">▶ Generate</button>
+        <a href="generator.html" class="btn btn-secondary">Open Full Editor →</a>
+      </div>
+      <audio id="demo-audio" controls style="width:100%; margin-top:14px; display:none;"></audio>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Everything you need to <span class="gradient-text">create with voice</span></h2>
+      <p>Powerful features designed for content creators, marketers, and developers.</p>
+    </div>
+
+    <div class="grid grid-3">
+      <div class="card"><div class="card-icon">🎙</div><h3>Realistic Voices</h3><p>Studio-grade neural voices with natural intonation.</p></div>
+      <div class="card"><div class="card-icon">🌍</div><h3>14+ Languages</h3><p>From English and Spanish to Japanese and Arabic.</p></div>
+      <div class="card"><div class="card-icon">⚡</div><h3>Instant Generation</h3><p>Generate high-quality audio in under 3 seconds.</p></div>
+      <div class="card"><div class="card-icon">🎬</div><h3>YouTube & TikTok Ready</h3><p>Voiceovers perfect for short and long-form video.</p></div>
+      <div class="card"><div class="card-icon">🎁</div><h3>Free Daily Credits</h3><p>5 free generations every day. No credit card.</p></div>
+      <div class="card"><div class="card-icon">💾</div><h3>HD MP3 Downloads</h3><p>Crystal-clear MP3 files ready to use anywhere.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="ad-slot ad-banner"><span>📢 Ad Slot — In-Content Display Ad</span></div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Hear our <span class="gradient-text">most popular voices</span></h2>
+      <p>Click play to preview real audio.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="voice-card">
+        <div class="voice-avatar">J</div>
+        <div class="voice-info"><h4>Joanna — US Female</h4><p>Warm, friendly, perfect for narration</p></div>
+        <button class="play-btn" data-voice-id="Joanna" data-sample="Hi, I'm Joanna. I make narration sound effortless and friendly.">▶</button>
+      </div>
+      <div class="voice-card">
+        <div class="voice-avatar">M</div>
+        <div class="voice-info"><h4>Matthew — US Male</h4><p>Deep, confident, podcast-ready</p></div>
+        <button class="play-btn" data-voice-id="Matthew" data-sample="Hello, I'm Matthew. Deep and confident, built for podcasts.">▶</button>
+      </div>
+      <div class="voice-card">
+        <div class="voice-avatar">A</div>
+        <div class="voice-info"><h4>Amy — UK Female</h4><p>Elegant British accent, audiobook-style</p></div>
+        <button class="play-btn" data-voice-id="Amy" data-sample="Greetings, I'm Amy. Elegant and clear, ideal for audiobooks.">▶</button>
+      </div>
+      <div class="voice-card">
+        <div class="voice-avatar">B</div>
+        <div class="voice-info"><h4>Brian — UK Male</h4><p>Classic British male, narrator</p></div>
+        <button class="play-btn" data-voice-id="Brian" data-sample="Hello, I'm Brian, with a refined British tone.">▶</button>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="voice-library.html" class="btn btn-secondary">Explore all voices →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Supported <span class="gradient-text">Languages</span></h2>
+      <p>14+ languages and growing.</p>
+    </div>
+    <div class="grid grid-4">
+      <div class="card text-center">🇺🇸 English (US)</div>
+      <div class="card text-center">🇬🇧 English (UK)</div>
+      <div class="card text-center">🇦🇺 English (AU)</div>
+      <div class="card text-center">🇪🇸 Spanish</div>
+      <div class="card text-center">🇫🇷 French</div>
+      <div class="card text-center">🇩🇪 German</div>
+      <div class="card text-center">🇮🇹 Italian</div>
+      <div class="card text-center">🇯🇵 Japanese</div>
+      <div class="card text-center">🇰🇷 Korean</div>
+      <div class="card text-center">🇨🇳 Chinese</div>
+      <div class="card text-center">🇧🇷 Portuguese</div>
+      <div class="card text-center">🇸🇦 Arabic</div>
+      <div class="card text-center">🇮🇳 Hindi</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Tools <span class="gradient-text">creators use</span></h2>
+      <p>Our hand-picked recommendations. (Affiliate links — see Privacy Policy.)</p>
+    </div>
+
+    <div class="grid grid-4">
+      <a href="#" class="card" target="_blank" rel="nofollow sponsored"><div class="card-icon">🎤</div><h3>Best Microphones</h3><p>Shure SM7B, Blue Yeti, RØDE NT-USB</p></a>
+      <a href="#" class="card" target="_blank" rel="nofollow sponsored"><div class="card-icon">🎬</div><h3>Video Editing Software</h3><p>Adobe Premiere, DaVinci Resolve, CapCut</p></a>
+      <a href="#" class="card" target="_blank" rel="nofollow sponsored"><div class="card-icon">🤖</div><h3>AI Creator Tools</h3><p>ElevenLabs, Runway, Descript</p></a>
+      <a href="#" class="card" target="_blank" rel="nofollow sponsored"><div class="card-icon">☁️</div><h3>Hosting Providers</h3><p>Hostinger, Bluehost, Cloudflare</p></a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <h2>Simple <span class="gradient-text">pricing</span></h2>
+      <p>Start for free. Upgrade only when you need more.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="pricing-card">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">$0<small>/forever</small></div>
+        <p class="plan-desc">Perfect for trying out VoxAI.</p>
+        <ul class="plan-features"><li>5 generations / day</li><li>25+ voices</li><li>MP3 download</li><li>Watch ads for extra credits</li></ul>
+        <a href="register.html" class="btn btn-secondary">Get started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most popular</div>
+        <div class="plan-name">Creator</div>
+        <div class="plan-price">$9<small>/month</small></div>
+        <p class="plan-desc">For YouTubers, TikTokers, and podcasters.</p>
+        <ul class="plan-features"><li>500 generations / month</li><li>50+ premium voices</li><li>HD MP3 + WAV</li><li>No ads, faster speeds</li></ul>
+        <a href="pricing.html" class="btn btn-primary">Choose Creator</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$29<small>/month</small></div>
+        <p class="plan-desc">For agencies and power users.</p>
+        <ul class="plan-features"><li>Unlimited generations</li><li>Voice cloning</li><li>Commercial license</li><li>API access</li></ul>
+        <a href="pricing.html" class="btn btn-secondary">Choose Pro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container" style="max-width: 800px;">
+    <div class="section-header">
+      <h2>Frequently asked <span class="gradient-text">questions</span></h2>
+    </div>
+    <div class="faq-item"><div class="faq-question">Is VoxAI really free? <span class="faq-toggle">+</span></div><div class="faq-answer"><p>Yes! 5 free generations every day. Watch short ads to unlock more credits — no credit card.</p></div></div>
+    <div class="faq-item"><div class="faq-question">Can I use the audio commercially? <span class="faq-toggle">+</span></div><div class="faq-answer"><p>Free plan is for personal use. Creator and Pro plans include full commercial rights.</p></div></div>
+    <div class="faq-item"><div class="faq-question">How realistic are the voices? <span class="faq-toggle">+</span></div><div class="faq-answer"><p>Our neural voices have natural intonation, pauses, and emotion.</p></div></div>
+    <div class="faq-item"><div class="faq-question">Which languages are supported? <span class="faq-toggle">+</span></div><div class="faq-answer"><p>14+ languages including English, Spanish, French, German, Japanese, Korean, Chinese, Arabic, Hindi, Portuguese, and more.</p></div></div>
+    <div class="faq-item"><div class="faq-question">Do you offer an API? <span class="faq-toggle">+</span></div><div class="faq-answer"><p>Yes — API access is included in the Pro plan. Great for developers.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="card" style="text-align:center; padding: 60px 30px; background: var(--gradient);">
+      <h2 style="font-size: 36px; margin-bottom: 12px;">Ready to give your text a voice?</h2>
+      <p style="color: rgba(255,255,255,0.9); margin-bottom: 26px; font-size: 17px;">Join creators already using VoxAI.</p>
+      <a href="register.html" class="btn" style="background: white; color: var(--accent);">Start Generating Free →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a href="index.html" class="logo" style="margin-bottom: 14px;">
+        <span class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span>
+        VoxAI
+      </a>
+      <p style="color: var(--text-secondary); font-size: 14px; max-width: 280px;">The fastest way to turn text into ultra-realistic AI voices.</p>
+    </div>
+    <div class="footer-col"><h4>Product</h4><ul><li><a href="generator.html">AI Generator</a></li><li><a href="voice-library.html">Voice Library</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="creator-tools.html">Creator Tools</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2026 VoxAI. All rights reserved.</div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module">
+  import { playVoiceInto } from "./js/voice-service.js";
+
+  const btn   = document.getElementById('demo-generate');
+  const audio = document.getElementById('demo-audio');
+
+  btn.addEventListener('click', async () => {
+    const text  = document.getElementById('demo-text').value.trim();
+    const voice = document.getElementById('demo-voice').value;
+    if (!text) return toast('Please type something first');
+    btn.disabled = true; btn.textContent = '⏳ Generating...';
+    audio.style.display = 'block';
+    try {
+      await playVoiceInto(audio, text, voice);
+      toast('✅ Voice generated!');
+    } catch (e) {
+      console.error(e);
+      toast('Failed: ' + e.message);
+    } finally {
+      btn.disabled = false; btn.textContent = '▶ Generate';
+    }
+  });
+</script>
+</body>
+</html>

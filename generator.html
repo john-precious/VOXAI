@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Generator – VoxAI</title>
+<meta name="description" content="Generate realistic AI voices from text. Free daily credits, 25+ voices, instant MP3 downloads.">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span>
+      VoxAI
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="generator.html">AI Generator</a></li>
+      <li><a href="voice-library.html">Voices</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="creator-tools.html">Creator Tools</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost">Login</a>
+      <a href="register.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="mobile-toggle">☰</button>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="ad-slot ad-banner"><span>📢 Ad Slot — Top Banner</span></div>
+</div>
+
+<header class="page-header">
+  <h1>AI Voice <span class="gradient-text">Generator</span></h1>
+  <p>Type your text, pick a voice, and generate studio-quality MP3 audio in seconds.</p>
+</header>
+
+<div class="tool-layout">
+  <div>
+    <div class="tool-panel">
+      <h3>📝 Your text</h3>
+      <div class="credit-counter">
+        <span>Credits: <strong id="credit-count">…</strong> · Plan: <strong id="current-plan">FREE</strong></span>
+        <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="document.getElementById('reward-modal').classList.add('open')">+ Get more</button>
+      </div>
+      <textarea id="text-input" placeholder="Enter the text you want to convert to speech... (up to 2500 characters)" maxlength="2500" style="width:100%; min-height: 180px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 14px; color: white; font-family: inherit; font-size: 15px; resize: vertical; outline: none;"></textarea>
+      <div class="char-counter">
+        <button class="btn btn-ghost" style="padding: 4px 10px; font-size:12px;" id="paste-btn">📋 Paste</button>
+        <span><span id="char-count">0</span> / 2500 characters</span>
+      </div>
+
+      <div style="margin-top: 20px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn btn-primary btn-lg" id="generate-btn" style="flex:1; min-width: 200px;">🎙 Generate Voice</button>
+        <button class="btn btn-secondary" id="clear-btn">Clear</button>
+      </div>
+      <div id="status-message" style="margin-top:14px; font-size:0.95rem; color:var(--text-muted); min-height:22px;"></div>
+
+      <div class="audio-result hidden" id="result-box">
+        <h3 style="font-size:15px; margin-bottom:12px;">🎧 Your generated voice</h3>
+        <audio id="result-audio" controls></audio>
+        <div class="audio-actions">
+          <button class="btn btn-primary" id="download-btn">⬇ Download MP3</button>
+          <button class="btn btn-secondary" id="regen-btn">🔄 Regenerate</button>
+          <button class="btn btn-ghost" id="save-btn">⭐ Save to history</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="tool-panel">
+      <h3>⚙️ Voice settings</h3>
+
+      <div class="form-group">
+        <label>Voice</label>
+        <select id="voice-select"></select>
+      </div>
+
+      <div class="range-group">
+        <label>Speed <span id="rate-val">1.0x</span></label>
+        <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1">
+        <small style="color: var(--text-muted); font-size: 11px;">Adjust playback speed on player</small>
+      </div>
+
+      <div class="range-group">
+        <label>Pitch <span id="pitch-val">1.0</span></label>
+        <input type="range" id="pitch" min="0.5" max="2" step="0.1" value="1">
+        <small style="color: var(--text-muted); font-size: 11px;">Upgrade to Pro for pitch control</small>
+      </div>
+
+      <div class="ad-slot" style="margin: 20px 0 0;">
+        <span style="font-size:12px;">📢 300x250 Sidebar Ad</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 40px;">
+  <div class="ad-slot ad-banner"><span>📢 Ad Slot — Bottom Banner</span></div>
+</div>
+
+<div class="modal-overlay" id="reward-modal">
+  <div class="modal">
+    <div style="font-size:48px; margin-bottom: 10px;">🎁</div>
+    <h2>Get more free credits</h2>
+    <p>Watch a short ad to unlock <strong>+3 generations</strong>. No signup required.</p>
+    <div style="display:flex; gap:10px; flex-direction: column;">
+      <button class="btn btn-primary btn-lg" id="watch-ad-btn">▶ Watch ad (+3 credits)</button>
+      <button class="btn btn-secondary" onclick="window.location.href='pricing.html'">Or upgrade — no ads</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('reward-modal').classList.remove('open')">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="ad-modal">
+  <div class="modal" style="max-width: 520px;">
+    <div style="background:#000; border-radius:12px; padding:60px 20px; margin-bottom:18px;">
+      <div style="font-size:48px; margin-bottom:10px;">📺</div>
+      <p style="color:#fff;">Sponsored video ad playing...</p>
+      <p style="color:#aaa; font-size:13px;">[Replace with your rewarded ad SDK: AdinPlay, Unity Ads, Adsterra]</p>
+    </div>
+    <p>Ad ends in <strong id="ad-countdown">5</strong> seconds...</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><a href="index.html" class="logo"><span class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span> VoxAI</a></div>
+    <div class="footer-col"><h4>Product</h4><ul><li><a href="generator.html">AI Generator</a></li><li><a href="voice-library.html">Voice Library</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2026 VoxAI. All rights reserved.</div>
+</footer>
+
+<script src="https://js.puter.com/v2/"></script>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="js/generator.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Library – VoxAI</title>
+<meta name="description" content="Browse 25+ AI voices. American, British, anime, narrator, podcast voices, and more.">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-wrapper">
+    <a href="index.html" class="logo">
+      <span class="logo-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span>
+      VoxAI
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="generator.html">AI Generator</a></li>
+      <li><a href="voice-library.html">Voices</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="creator-tools.html">Creator Tools</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="login.html" class="btn btn-ghost">Login</a>
+      <a href="register.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="mobile-toggle">☰</button>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>Voice <span class="gradient-text">Library</span></h1>
+  <p>Click ▶ to preview real audio. Sign in to ⭐ favorite voices for quick access.</p>
+</header>
+
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" data-filter="all">All</button>
+    <button class="tab" data-filter="american-male">American Male</button>
+    <button class="tab" data-filter="american-female">American Female</button>
+    <button class="tab" data-filter="british">British</button>
+    <button class="tab" data-filter="anime">Anime</button>
+    <button class="tab" data-filter="narrator">Narrator</button>
+    <button class="tab" data-filter="podcast">Podcast</button>
+  </div>
+
+  <div class="grid grid-3" id="voice-grid">
+    <p style="color: var(--text-muted); text-align:center; grid-column: 1/-1;">Loading voices...</p>
+  </div>
+
+  <div class="ad-slot ad-banner" style="margin-top: 50px;"><span>📢 Ad Slot — Bottom Banner</span></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col"><a href="index.html" class="logo"><span class="logo-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></span> VoxAI</a></div>
+    <div class="footer-col"><h4>Product</h4><ul><li><a href="generator.html">AI Generator</a></li><li><a href="voice-library.html">Voice Library</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">© 2026 VoxAI. All rights reserved.</div>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+<script type="module">
+  import { VOICES, playVoiceInto } from "./js/voice-service.js";
+  const _sharedAudio = new Audio();
+  import { auth } from "./js/firebase-config.js";
+  import { toggleFavorite, getFavorites } from "./js/user-service.js";
+
+  const grid = document.getElementById("voice-grid");
+
+  let favoriteIds = new Set();
+  auth.onAuthStateChanged(async user => {
+    if (user) {
+      try { (await getFavorites()).forEach(f => favoriteIds.add(f.voiceId)); }
+      catch (e) { console.warn(e); }
+      render();
+    } else {
+      render();
+    }
+  });
+
+  function render() {
+    grid.innerHTML = VOICES.map(v => `
+      <div class="voice-card" data-category="${v.category}">
+        <div class="voice-avatar">${v.name.charAt(0)}</div>
+        <div class="voice-info">
+          <h4>${v.name} ${favoriteIds.has(v.id) ? '⭐' : ''}</h4>
+          <p>${v.accent} ${v.gender === 'female' ? '♀' : '♂'} · ${v.desc}</p>
+        </div>
+        <button class="play-btn" data-preview="${v.id}" title="Preview">▶</button>
+        <button class="play-btn" data-fav="${v.id}" data-name="${v.name}" title="Favorite" style="background:rgba(255,200,80,0.15);color:#ffd060;border-color:rgba(255,200,80,0.3);">${favoriteIds.has(v.id) ? '⭐' : '☆'}</button>
+      </div>
+    `).join("");
+
+    // Preview
+    grid.querySelectorAll("[data-preview]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const id = btn.dataset.preview;
+        const voice = VOICES.find(v => v.id === id);
+        const sample = sampleFor(voice);
+        const original = btn.innerHTML;
+        btn.innerHTML = "⏳"; btn.disabled = true;
+        try {
+          _sharedAudio.pause();
+          await playVoiceInto(_sharedAudio, sample, id);
+          toast("▶ " + voice.name);
+        } catch (e) { console.error(e); toast("Preview failed: " + e.message); }
+        btn.innerHTML = original; btn.disabled = false;
+      });
+    });
+
+    // Favorite
+    grid.querySelectorAll("[data-fav]").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        if (!auth.currentUser) {
+          toast("Please log in to save favorites");
+          setTimeout(() => location.href = "login.html", 1000);
+          return;
+        }
+        try {
+          const added = await toggleFavorite(btn.dataset.fav, btn.dataset.name);
+          if (added) favoriteIds.add(btn.dataset.fav); else favoriteIds.delete(btn.dataset.fav);
+          btn.textContent = added ? '⭐' : '☆';
+          toast(added ? "⭐ Added to favorites" : "Removed from favorites");
+        } catch (e) { toast("Failed: " + e.message); }
+      });
+    });
+  }
+
+  function sampleFor(v) {
+    const samples = {
+      "en-US": `Hi there, I'm ${v.name}. This is a preview of how I sound.`,
+      "en-GB": `Hello, I'm ${v.name}. A pleasure to make your acquaintance.`,
+      "en-AU": `G'day, I'm ${v.name}. Welcome to the Aussie voice library!`,
+      "ja-JP": `こんにちは、${v.name}です。よろしくお願いします。`,
+      "ko-KR": `안녕하세요, 저는 ${v.name}입니다.`,
+      "es-ES": `Hola, soy ${v.name}. Encantado de conocerte.`,
+      "es-US": `Hola, soy ${v.name}. Bienvenido.`,
+      "fr-FR": `Bonjour, je suis ${v.name}. Enchanté.`,
+      "de-DE": `Hallo, ich bin ${v.name}. Schön, dich kennenzulernen.`,
+      "it-IT": `Ciao, sono ${v.name}. Piacere di conoscerti.`,
+      "pt-BR": `Olá, eu sou ${v.name}. Prazer em conhecê-lo.`,
+      "hi-IN": `नमस्ते, मैं ${v.name} हूँ।`,
+      "zh-CN": `你好，我是${v.name}。`,
+      "ar":    `مرحباً، أنا ${v.name}.`
+    };
+    return samples[v.lang] || `Hello, I'm ${v.name}.`;
+  }
+</script>
+</body>
+</html>
