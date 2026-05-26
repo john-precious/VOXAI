@@ -140,7 +140,8 @@ function bindUI() {
     toast("⭐ Saved to history");
   });
 
-  // Rewarded ad flow (simulation — swap with real SDK in production)
+   
+    // Rewarded ad flow
   watchAdBtn?.addEventListener("click", () => {
     $("#reward-modal").classList.remove("open");
     $("#ad-modal").classList.add("open");
